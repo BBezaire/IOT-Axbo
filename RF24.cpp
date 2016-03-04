@@ -555,6 +555,7 @@ void RF24::printDetails(void)
   print_byte_register(PSTR("RF_SETUP"),RF_SETUP);
   print_byte_register(PSTR("CONFIG\t"),CONFIG);
   print_byte_register(PSTR("DYNPD/FEATURE"),DYNPD,2);
+  print_byte_register(PSTR("SETUP_AW"),SETUP_AW);
 
   printf_P(PSTR("Data Rate\t = " PRIPSTR "\r\n"),pgm_read_word(&rf24_datarate_e_str_P[getDataRate()]));
   printf_P(PSTR("Model\t\t = " PRIPSTR "\r\n"),pgm_read_word(&rf24_model_e_str_P[isPVariant()]));
@@ -1172,7 +1173,7 @@ void RF24::openReadingPipe(uint8_t child, uint64_t address)
 void RF24::setAddressWidth(uint8_t a_width){
 
 	if(a_width -= 2){
-		write_register(SETUP_AW,a_width%4);
+		write_register(SETUP_AW,0x00);
 		addr_width = (a_width%4) + 2;
 	}
 

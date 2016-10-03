@@ -24,6 +24,7 @@
  */
 
 #include <cstdlib>
+#include <unistd.h>
 #include <iostream>
 #include <RF24/RF24.h>
 
@@ -42,8 +43,9 @@ using namespace std;
 //RF24 radio(RPI_V2_GPIO_P1_15, BCM2835_SPI_CS0, BCM2835_SPI_SPEED_4MHZ); 
 
 // Setup for GPIO 22 CE and CE1 CSN with SPI Speed @ 8Mhz
-RF24 radio(RPI_V2_GPIO_P1_15, RPI_V2_GPIO_P1_24, BCM2835_SPI_SPEED_8MHZ);  
+RF24 radio(RPI_V2_GPIO_P1_22, RPI_V2_GPIO_P1_24, BCM2835_SPI_SPEED_1MHZ);  
 
+//RF24 radio(22,0);
 
 //
 // Channel info
@@ -74,7 +76,8 @@ int main(int argc, char** argv)
   uint64_t address = 0xBBBBBBBBBB;
   
   radio.begin();
-	
+//  radio.powerDown();
+ // radio.powerUp();	
   radio.setAutoAck(false);
   radio.setAddressWidth(0);
   radio.setPayloadSize(4);
@@ -90,13 +93,13 @@ int main(int argc, char** argv)
   radio.startListening();
   radio.printDetails();
   //write_register(EN_RXADDR,0x01);
-  
+  char receivePayload[4];
   while(1)
   {
-	char receivePayload[4];
+	
 	  
 	radio.startListening();
-	//delayMicroseconds(128);
+	usleep(1000);
 			
 	//radio.stopListening();
 	while (radio.available()) {

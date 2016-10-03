@@ -25,7 +25,7 @@ void SPI::begin(int busNo){
     }
 
 	//RPi:
-	  /*if(!busNo){
+	 /* if(!busNo){
 	    this->device = "/dev/spidev0.0";;
 	  }else{
 	    this->device = "/dev/spidev0.1";;

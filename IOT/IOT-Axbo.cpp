@@ -1,26 +1,26 @@
 /*
- Copyright (C) 2011 J. Coliz <maniacbug@ymail.com>
-
+ Copyright (C) 2016 Brandon Bezaire
+ 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
  version 2 as published by the Free Software Foundation.
  
+ Code graciously borrowed from the Channel scanner example 
  
+ Copyright (C) 2011 J. Coliz <maniacbug@ymail.com>
  03/17/2013 : Charles-Henri Hallard (http://hallard.me)
-              Modified to use with Arduipi board http://hallard.me/arduipi
-						  Changed to use modified bcm2835 and RF24 library 
-
+ 
  */
 
 /**
- * Channel scanner
+ * IOT Axbo
  *
- * Example to detect interference on the various channels available.
- * This is a good diagnostic tool to check whether you're picking a
- * good channel for your application.
- *
- * Inspired by cpixip.
- * See http://arduino.cc/forum/index.php/topic,54795.0.html
+ * Listens for Axbo wristband signals
+ * Runs system command if button is pressed
+ * 
+ * Still a WIP
+ * 
+ * 
  */
 
 #include <cstdlib>
@@ -110,7 +110,8 @@ printf("Recv: size=%i payload=%x",len,receivePayload[0]);
 printf("\n");
 if (receivePayload[0] == 0x44){
 	printf("Button Pressed \n");
-	system("curl http://192.168.1.110:8083/ZAutomation/api/v1/devices/ZWayVDev_zway_2-0-37/command/on");
+	//Needs a config file
+	system("curl http://192.168.1.102:8083/ZAutomation/api/v1/devices/ZWayVDev_zway_2-0-37/command/on");
 }
 	//for (int i = 0; i < 4; i++) {
 		//printf("0x%x ", receivePayload[i]);
